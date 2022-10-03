@@ -1,4 +1,4 @@
-//WORKING CODE OF DFS!!!
+//WORKING CODE OF DFS for adjacency list!!!
 
 #include<bits/stdc++.h>
 using namespace std;
