@@ -1,31 +1,46 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-void min_heapify(vector<int> v,int i)
+int dist(pair<int,int> p)
 {
-    int l=2*i;
-    int r=2*i+1;
+    int dist_sq= (p.first*p.first)+(p.second*p.second); //x2+y2
+    return dist_sq;
+}
+
+//modification: you can actually use v.size() instead of n everywhere in the functions. This way n need not be passed to the functions.
+//read nodes from 1 to n, and access vector using 0 to (n-1)
+
+void min_heapify(vector< pair<int,int> > v, int i, int n) //i=index to start from, n=heap size
+{
     int smallest;
-    if(l<=v.size() && v[l-1]>v[i-1]) {smallest=i;}
-    else {smallest=l;}
-    if(r<=v.size() && v[r-1]<v[smallest-1]) {smallest=r;}
-    if(smallest!=i) 
-    {
-        swap(v[i-1],v[smallest-1]);
-        min_heapify(v,smallest);
-    }
+    if( 2*i<=n && dist(v[2*i-1]) < dist(v[i-1]) ) {smallest=2*i;}
+    else{smallest=2*i;}
+    if( 2*i+1<=n && dist(v[2*i]) < dist(v[smallest-1]) ) {smallest=2*i+1;}
 
+    if(smallest!=i) { v[i-1].swap(v[smallest-1]); }
+
+    min_heapify(v,smallest,n);
 }
 
-void build_minheap(vector<int> v)
+void build_minheap(vector< pair<int,int> > v, int n)
 {
-    for(int i=v.size()/2 ;i>=1;i--)
+    for(int i=n/2; i>=1; i--)
     {
-        min_heapify(v,i);
+        min_heapify(v,i,n);
     }
 }
 
+void heap_extract_min(vector< pair<int,int> > v, int n)
+{
+    if(n<1) {cout<<"heap underflow\n"; return;}
+    pair<int,int> min;
+    min=v[0];
+    cout<<min.first<<" "<<min.second<<endl;
 
+    v[0]=v[n-1];
+    n=n-1;
+    min_heapify(v,1,n);
+}
 
 
 int main()
@@ -33,20 +48,19 @@ int main()
     int n;
     cin>>n;
 
-    vector< pair<int,int> > v; //coordinates
-    vector<int> d; //distances
-
+    vector < pair<int,int> > v;
 
     for(int i=0;i<n;i++)
     {
         int x,y;
         cin>>x>>y;
         v.push_back(make_pair(x,y));
-        d.push_back((x*x)+(y*y)) ;
     }
-    
-    build_minheap(d);
 
-    for(int i=0)
+    build_minheap(v,n);
 
+    for(int i=0;i<n;i++)
+    {
+        heap_extract_min(v,n);
+    }
 }
