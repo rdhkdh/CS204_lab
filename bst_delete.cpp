@@ -145,13 +145,13 @@ int main()
     postorder(root);
     cout<<endl;
 
-    Node* searched_node= tree_search(root,8);
-    cout<< searched_node->left->data <<endl; //search also works!!!
+    Node* searched_node= tree_search(root,1);
+    // cout<< searched_node->left->data <<endl; //search also works!!!
     delete_node(root,searched_node);
 
-    update(root,2,3);
+    // update(root,2,3);
     inorder(root);
-    cout<<endl;
+    // cout<<endl;
 
 
 
