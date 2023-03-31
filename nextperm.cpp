@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+// don't use this method! Very inefficient.
+// Use v[i] to access the same and carry out the same algo.
 
 int main()
 {
